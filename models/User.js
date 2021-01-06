@@ -14,19 +14,14 @@ module.exports.getById = id =>
                 'phone')
         .then(jsonData)
 
-module.exports.getAllPasswords = () =>
-    knex('user')
-        .select('id',
-                'password')
-        .then(jsonData)
-
 module.exports.create = user =>
     knex('user')
         .insert({
             name: user.name,
             email: user.email,
             phone: user.phone,
-            password: user.password
+            password: user.password,
+            salt: user.salt
         })
 
 module.exports.updateEmail = user =>
@@ -49,3 +44,20 @@ module.exports.updatePassword = user =>
         .update({
             password: user.password
         })
+
+module.exports.getSalt = email =>
+    knex('user')
+        .where('email', email)
+        .select('salt')
+        .then(jsonData)
+
+module.exports.auth = user =>
+    knex('user')
+        .where('email', user.email)
+        .andWhere('password', user.password)
+        .select(
+            'id',
+            'name',
+            'email',
+            'phone')
+        .then(jsonData)

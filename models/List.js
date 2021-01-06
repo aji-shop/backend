@@ -50,15 +50,7 @@ module.exports.create = list =>
             count: list.count
         })
 
-module.exports.update = list =>
-    knex('list')
-        .where('id', list.id)
-        .andWhere('product_id', list.product_id)
-        .update({
-            count: list.count
-        })
-
-module.exports.deleteProduct = list =>
+module.exports.delete = list =>
     knex('list')
         .where('id', list.id)
         .andWhere('product_id', list.product_id)

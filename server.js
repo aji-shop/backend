@@ -1,5 +1,6 @@
 const app = require('./app')
 
+app.set('address','api.devel')
 app.set('port', process.env.PORT || 8080)
 
 const server = app.listen(app.get('port'), () => {
