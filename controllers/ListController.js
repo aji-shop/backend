@@ -1,5 +1,5 @@
 const List = require('../models/List')
-const autorize = require('./autorize')
+const {autorize} = require('./jwt')
 
 
 exports.getAll = (req, res) => {

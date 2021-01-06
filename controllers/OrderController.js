@@ -1,6 +1,5 @@
 const Order = require('../models/Order')
-
-const autorize = require('./autorize')
+const {autorize} = require('./jwt')
 
 exports.getAll = (req, res) => {
     autorize(
@@ -31,19 +30,17 @@ exports.create = (req, res) => {
         req.headers.token,
         false,
         res,
-        () => {
+        (decoded) => {
             const {
                 id,
                 date,
-                state_id,
-                user_id
             } = req.body
         
             Order.create({
                 id: id,
                 date: date,
-                state_id: state_id,
-                user_id: user_id
+                state_id: 1,
+                user_id: decoded.id
             }).then(
             data => {
                 res.json({

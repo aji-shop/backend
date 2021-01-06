@@ -1,6 +1,6 @@
 const User = require('../models/User')
 const crypto = require('crypto')
-const autorize = require('./autorize')
+const {autorize, createToken} = require('./jwt')
 
 const hash = (salt, password) =>
     crypto.createHash('sha1')
@@ -11,11 +11,7 @@ const hash = (salt, password) =>
                         'utf-8')
                 .digest('base64')
 
-const createToken = id =>
-    jwt.sign({
-        id: id,
-        exp: Date.now() + 24*60*60*1000
-    }, secret)
+
 
 exports.getAll = (req, res) => {
     autorize(

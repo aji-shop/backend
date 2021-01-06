@@ -1,7 +1,7 @@
-const {verify} = require('jsonwebtoken')
+const {verify, sign} = require('jsonwebtoken')
 const secret = require('../config/secret')
 
-module.exports = (token, adminOnly, res, callback) => {
+module.exports.autorize = (token, adminOnly, res, callback) => {
     verify(token, secret, (err, decoded) => {
         if (err) {
             return res.sendStatus(403)
@@ -15,6 +15,12 @@ module.exports = (token, adminOnly, res, callback) => {
             return res.status(401).send('Only admin can do this')
         }
 
-        callback()
+        callback(decoded)
     })
 }
+
+module.exports.createToken = id =>
+    sign({
+        id: id,
+        exp: Date.now() + 24*60*60*1000 //token exists for a day
+    }, secret)
