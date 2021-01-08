@@ -17,16 +17,24 @@ module.exports.getAll = () =>
 
 module.exports.getByStatusId = id =>
     knex('order')
-        .where('status_id', id)
-        .select('*')
+        .where('state_id', id)
+        .join('user','user.id','=','order.user_id')
+        .select(
+            'order.id',
+            'order.date',
+            'order.state_id',
+            'user.name',
+            'user.email',
+            'user.phone')
         .then(jsonData)
 
 module.exports.create = order =>
     knex('order')
         .insert({
-            id: '' + order.id + order.user_id,
+            id: '' + order.id,
             state_id: order.state_id,
-            user_id: order.user_id
+            user_id: order.user_id,
+            date: order.date
         })
         .then(jsonData)
 

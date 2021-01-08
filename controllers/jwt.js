@@ -4,6 +4,7 @@ const secret = require('../config/secret')
 module.exports.autorize = (token, adminOnly, res, callback) => {
     verify(token, secret, (err, decoded) => {
         if (err) {
+            console.log(err.message)
             return res.sendStatus(403)
         }
     

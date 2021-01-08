@@ -15,7 +15,7 @@ exports.getById = (req, res) => {
 
 exports.create = (req, res) => {
     autorize(
-        req.headers.token, 
+        req.body.token, 
         true, 
         res, 
         () => {
@@ -51,14 +51,12 @@ exports.create = (req, res) => {
 
 exports.update = (req, res) => {
     autorize(
-        req.headers.token, 
+        req.body.token, 
         true, 
         res, 
         () => {
             const {
                 id,
-                name,
-                description,
                 price,
                 weight,
                 category_id
@@ -66,8 +64,6 @@ exports.update = (req, res) => {
         
             Product.update({
                 id: id,
-                name: name,
-                description: description,
                 price: price,
                 weight: weight,
                 category_id: category_id

@@ -23,7 +23,7 @@ module.exports.getAll = () =>
                     description: item.description,
                     price: item.price,
                     weight: item.weight,
-                    category_id: item.category
+                    category_id: item.category_id
                 },
                 count: item.count
             })))

@@ -65,6 +65,9 @@ exports.create = (req, res) => {
               phone: phone
             }
           })
+    },
+    err => {
+        res.status(401).send(err)
     })
 }
 
@@ -72,9 +75,13 @@ exports.auth = (req, res) => {
     const {
         email,
         password
-    } = req.headers
+    } = req.body
 
     User.getSalt(email).then(user => {
+        if (user[0] === undefined) {
+            return res.status(401).send('Email is incorrect')
+        }
+
         User.auth({
             email: email,
             password: hash(user[0].salt, password)

@@ -56,19 +56,9 @@ module.exports.update = async (product) => {
             return new Error('Weight must be greater than zero')
         }
 
-        if (product.description === '') {
-            return new Error('Description cannot be empty')
-        }
-
-        if (product.name === '') {
-            return new Error('Name cannot be empty')
-        }
-
         return knex('product')
                 .where('id','=', product.id)
                 .update({
-                    name: product.name,
-                    description: product.description,
                     price: product.price,
                     weight: product.weight,
                     category_id: product.category_id

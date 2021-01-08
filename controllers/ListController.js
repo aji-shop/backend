@@ -28,7 +28,7 @@ exports.getById = (req, res) => {
 
 exports.create = (req, res) => {
     autorize(
-        req.headers.token, 
+        req.body.token, 
         false,
         res,
         () => {
